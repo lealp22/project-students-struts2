@@ -40,10 +40,59 @@ public class RegistroAction extends ActionSupport {
 
         if (alumno != null) {
 
+            // Validación del DNI (ya existente)
             if (alumno.getDni() == null || alumno.getDni().trim().isEmpty()) {
-                addFieldError("alumno.dni", "El DNI es obligatorio");
+                addFieldError("alumno.dni", "El DNI es obligatorio.");
             }
-            // Aquí podrías agregar más validaciones para los otros campos según lo que necesites
+
+            // Validación del nombre
+            if (alumno.getNombre() == null || alumno.getNombre().trim().isEmpty()) {
+                addFieldError("alumno.nombre", "El nombre es obligatorio.");
+            }
+
+            // Validación de apellidos
+            if (alumno.getApellidos() == null || alumno.getApellidos().trim().isEmpty()) {
+                addFieldError("alumno.apellidos", "Los apellidos son obligatorios.");
+            }
+
+            // Validación de dirección
+            if (alumno.getDireccion() == null || alumno.getDireccion().trim().isEmpty()) {
+                addFieldError("alumno.direccion", "La dirección es obligatoria.");
+            }
+
+            // Validación del curso
+            if (alumno.getCurso() == null || alumno.getCurso().trim().isEmpty()) {
+                addFieldError("alumno.curso", "El curso es obligatorio.");
+            }
+
+            // Validación de teléfono (solo números)
+            if (alumno.getTelefono() == null || !alumno.getTelefono().matches("\\d+")) {
+                addFieldError("alumno.telefono", "El teléfono debe contener solo números.");
+            }
+
+            // Validación del email (debe contener '@')
+            if (alumno.getEmail() == null || !alumno.getEmail().contains("@")) {
+                addFieldError("alumno.email", "El email debe contener un '@'.");
+            }
+
+            // Validación de fechas (asegúrate de que no sean nulas y tengan formato válido)
+            if (alumno.getFechaNacimiento() == null) {
+                addFieldError("alumno.fechaNacimiento", "La fecha de nacimiento es obligatoria.");
+            }
+
+            if (alumno.getFechaInicio() == null) {
+                addFieldError("alumno.fechaInicio", "La fecha de inicio es obligatoria.");
+            }
+
+            if (alumno.getFechaFin() == null) {
+                addFieldError("alumno.fechaFin", "La fecha de fin es obligatoria.");
+            }
+
+            // Validación de que la fecha de inicio no sea posterior a la fecha de fin
+            if (alumno.getFechaInicio() != null && alumno.getFechaFin() != null &&
+                    alumno.getFechaInicio().after(alumno.getFechaFin())) {
+                addFieldError("alumno.fechaInicio", "La fecha de inicio no puede ser posterior a la fecha de fin.");
+            }
         }
     }
 
