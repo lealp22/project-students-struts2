@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-	"http://struts.apache.org/dtds/struts-2.5.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 
-  <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
-  <constant name="struts.devMode" value="true"/>
+    <!-- Configuraciones globales -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.locale" value="es_ES"/>
+    <constant name="struts.custom.i18n.resources" value="package_es"/>
+
+    <!-- Paquete de acciones -->
+    <package name="default" namespace="/" extends="struts-default">
+
+        <!-- Acción para la página inicial (usando HelloAction) -->
+        <action name="" class="org.example.actions.HelloAction">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="hello" class="org.example.actions.HelloAction">
+            <result name="success">/index.jsp</result> <!-- Redirige a index.jsp en caso de éxito -->
+        </action>
+
+        <!-- Acción para buscar un alumno por DNI -->
+        <action name="buscarAlumno" class="org.example.actions.BuscarAction">
+            <result name="success">/alumno.jsp</result>
+            <result name="input">/index.jsp</result>
+        </action>
+
+        <!-- Acción para mostrar el formulario de registro -->
+        <action name="registrarAlumnoForm" class="org.example.actions.RegistroAction" method="iniciar">
+            <result name="success">/registro.jsp</result>
+        </action>
+
+        <!-- Acción para registrar un nuevo alumno -->
+        <action name="registroAlumno" class="org.example.actions.RegistroAction">
+            <result name="success">/index.jsp</result>
+            <result name="input">/registro.jsp</result>
+        </action>
+
+    </package>
 
 </struts>
